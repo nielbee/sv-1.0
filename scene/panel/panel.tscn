@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://bbfxqb6yxjajo"]
+
+[ext_resource type="Script" path="res://scene/panel/panel.gd" id="1_v3sir"]
+[ext_resource type="Texture2D" uid="uid://dp3obdkp7keb4" path="res://assets/icon/settings_applications_24dp_FILL0_wght400_GRAD0_opsz24.png" id="2_2e47w"]
+[ext_resource type="FontFile" uid="uid://dhmnhl8c2tlge" path="res://assets/font/Winkle-Regular.ttf" id="2_qe2wj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nfvc4"]
+bg_color = Color(0, 0, 0, 0.94902)
+
+[node name="Panel" type="Panel"]
+offset_top = 632.0
+offset_right = 1688.0
+offset_bottom = 696.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_nfvc4")
+script = ExtResource("1_v3sir")
+
+[node name="HTTPRequestuserInfo" type="HTTPRequest" parent="."]
+
+[node name="LabelNama" type="Label" parent="."]
+layout_mode = 0
+offset_left = 856.0
+offset_right = 1456.0
+offset_bottom = 64.0
+theme_override_fonts/font = ExtResource("2_qe2wj")
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="SettingsApplications24DpFill0Wght400Grad0Opsz24" type="Sprite2D" parent="."]
+modulate = Color(1, 0.960784, 0.270588, 1)
+position = Vector2(1504, 32)
+texture = ExtResource("2_2e47w")
+
+[node name="HTTPRequestGetToken" type="HTTPRequest" parent="."]
+
+[connection signal="request_completed" from="HTTPRequestuserInfo" to="." method="_on_http_requestuser_info_request_completed"]
+[connection signal="request_completed" from="HTTPRequestGetToken" to="." method="_on_http_request_get_token_request_completed"]

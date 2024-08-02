@@ -1,0 +1,151 @@
+[gd_scene load_steps=11 format=3 uid="uid://clenqh253pf8x"]
+
+[ext_resource type="Shader" path="res://shader/teleport.gdshader" id="1_iihrv"]
+[ext_resource type="Texture2D" uid="uid://biqm84ln6ntno" path="res://futuristic_gui.png" id="1_p5wax"]
+[ext_resource type="FontFile" uid="uid://drev8tq10f82o" path="res://assets/font/sujetb__.ttf" id="2_c75fm"]
+[ext_resource type="Script" path="res://scene/component/script/popUp.gd" id="2_xwai1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s5wj0"]
+shader = ExtResource("1_iihrv")
+shader_parameter/progress = 0.0
+shader_parameter/noise_desnity = 60.0
+shader_parameter/beam_size = 0.15
+shader_parameter/color = Color(0.032749, 0.117099, 0.13854, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fgvkp"]
+shader = ExtResource("1_iihrv")
+shader_parameter/progress = 0.0
+shader_parameter/noise_desnity = 2000.0
+shader_parameter/beam_size = 0.01
+shader_parameter/color = Color(0, 1.02, 1.2, 1)
+
+[sub_resource type="Animation" id="Animation_v0k7g"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NinePatchRect:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("NinePatchRect/Label:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_0wyml"]
+resource_name = "disolve"
+length = 2.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NinePatchRect:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 2.6),
+"transitions": PackedFloat32Array(6.27667, 33.1285),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("NinePatchRect/Label:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_6bpvq"]
+resource_name = "show"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NinePatchRect:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 5.27803),
+"update": 0,
+"values": [0.731, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("NinePatchRect/Label:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_datb2"]
+_data = {
+"RESET": SubResource("Animation_v0k7g"),
+"disolve": SubResource("Animation_0wyml"),
+"show": SubResource("Animation_6bpvq")
+}
+
+[node name="PopUp" type="Node2D"]
+material = SubResource("ShaderMaterial_s5wj0")
+position = Vector2(184, 56)
+script = ExtResource("2_xwai1")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+material = SubResource("ShaderMaterial_fgvkp")
+offset_left = -472.0
+offset_top = -96.0
+offset_right = 104.0
+offset_bottom = -16.0
+size_flags_horizontal = 4
+texture = ExtResource("1_p5wax")
+region_rect = Rect2(255, 246, 66, 66)
+patch_margin_left = 24
+patch_margin_top = 24
+patch_margin_right = 30
+patch_margin_bottom = 27
+
+[node name="Label" type="Label" parent="NinePatchRect"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 16.0
+offset_right = 544.0
+offset_bottom = 72.0
+theme_override_colors/font_color = Color(0.487726, 0.673923, 0.846461, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_fonts/font = ExtResource("2_c75fm")
+text = "sdnkalsbjac bnm xcmxzx czkc kjj c"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_datb2")
+}
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

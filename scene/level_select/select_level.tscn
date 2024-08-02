@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://xlh2cspx50pj"]
+
+[ext_resource type="PackedScene" uid="uid://b56ifw3r50da" path="res://scene/stage_select/stage.tscn" id="1_iahm3"]
+
+[node name="select_level" type="Node2D"]
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+offset_left = 72.0
+offset_top = 208.0
+offset_right = 1552.0
+offset_bottom = 616.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+
+[node name="stage" parent="." instance=ExtResource("1_iahm3")]
+position = Vector2(256, 104)

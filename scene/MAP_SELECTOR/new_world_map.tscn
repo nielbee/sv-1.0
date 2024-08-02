@@ -1,0 +1,56 @@
+[gd_scene load_steps=4 format=3 uid="uid://cv7hpmu04y2rj"]
+
+[ext_resource type="Script" path="res://scene/MAP_SELECTOR/new_world_map.gd" id="1_huxaw"]
+[ext_resource type="Texture2D" uid="uid://biqm84ln6ntno" path="res://futuristic_gui.png" id="2_xjxgh"]
+[ext_resource type="FontFile" uid="uid://4ek6biwu6max" path="res://assets/font/Winkle-Regular.otf" id="3_xajeh"]
+
+[node name="new_world_map" type="Node2D"]
+script = ExtResource("1_huxaw")
+
+[node name="map" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Border" type="NinePatchRect" parent="map"]
+modulate = Color(1, 1, 1, 0.839216)
+layout_mode = 0
+offset_left = 240.0
+offset_top = 120.0
+offset_right = 1560.0
+offset_bottom = 664.0
+texture = ExtResource("2_xjxgh")
+region_rect = Rect2(765, 75, 66, 66)
+patch_margin_left = 45
+patch_margin_top = 36
+patch_margin_right = 24
+patch_margin_bottom = 33
+
+[node name="BorderTitle" type="Label" parent="map/Border"]
+layout_mode = 0
+offset_left = 1000.0
+offset_top = 16.0
+offset_right = 1312.0
+offset_bottom = 64.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_xajeh")
+theme_override_font_sizes/font_size = 60
+text = "Pilih Level : "
+
+[node name="ScrollContainer" type="ScrollContainer" parent="map"]
+layout_mode = 0
+offset_left = 264.0
+offset_top = 208.0
+offset_right = 1544.0
+offset_bottom = 656.0
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="vertikalScroll" type="VBoxContainer" parent="map/ScrollContainer"]
+custom_minimum_size = Vector2(0, 100000)
+layout_mode = 2
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_http_request_request_completed"]

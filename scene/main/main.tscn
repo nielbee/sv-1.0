@@ -1,0 +1,172 @@
+[gd_scene load_steps=17 format=3 uid="uid://cypq3fxw2gm4d"]
+
+[ext_resource type="Script" path="res://scene/main/script/main.gd" id="1_4ued1"]
+[ext_resource type="Texture2D" uid="uid://dwtb5uehhlusu" path="res://assets/bg/kelas.png" id="2_y8rcs"]
+[ext_resource type="Script" path="res://scene/effect/paralax_for_texture_rect.gd" id="3_hkkrd"]
+[ext_resource type="AudioStream" uid="uid://h1i5mwwfd58y" path="res://assets/SFX/bgmusic/mixaund-optimistic-inspirational.mp3" id="4_8rykm"]
+[ext_resource type="PackedScene" uid="uid://cv7hpmu04y2rj" path="res://scene/MAP_SELECTOR/new_world_map.tscn" id="4_d6nie"]
+[ext_resource type="Shader" path="res://scene/effect/GOD_RAYS.gdshader" id="4_omhas"]
+[ext_resource type="PackedScene" uid="uid://tx0sj1xffmlb" path="res://scene/soal/soal.tscn" id="8_cdn50"]
+[ext_resource type="PackedScene" uid="uid://bbfxqb6yxjajo" path="res://scene/panel/panel.tscn" id="9_cdvdm"]
+[ext_resource type="PackedScene" uid="uid://ce1dailqjsisu" path="res://scene/level_select/container.tscn" id="9_ieqre"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vmnmy"]
+size = Vector2(226, 122)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y4fhm"]
+size = Vector2(1864, 944)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cuyf4"]
+shader = ExtResource("4_omhas")
+shader_parameter/angle = -0.19
+shader_parameter/position = -0.2
+shader_parameter/spread = 0.5
+shader_parameter/cutoff = -0.04
+shader_parameter/falloff = 0.2
+shader_parameter/edge_fade = 1.0
+shader_parameter/speed = 10.0
+shader_parameter/ray1_density = 8.0
+shader_parameter/ray2_density = 30.0
+shader_parameter/ray2_intensity = 0.3
+shader_parameter/color = Vector4(1, 0.9, 0.65, 0.8)
+shader_parameter/hdr = true
+shader_parameter/seed = 5.0
+
+[sub_resource type="Environment" id="Environment_omcjg"]
+background_mode = 3
+glow_enabled = true
+glow_intensity = 2.54
+glow_hdr_threshold = 0.0
+
+[sub_resource type="Animation" id="Animation_7l858"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:environment:glow_bloom")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../god_ray:material:shader_parameter/cutoff")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.04]
+}
+
+[sub_resource type="Animation" id="Animation_d61p6"]
+resource_name = "ligth_effect"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:environment:glow_bloom")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.8, 2.9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.57, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../god_ray:material:shader_parameter/cutoff")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.8, 2.9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-0.04, -0.333, -0.018]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jfmij"]
+_data = {
+"RESET": SubResource("Animation_7l858"),
+"ligth_effect": SubResource("Animation_d61p6")
+}
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_4ued1")
+
+[node name="batas_paralax" type="CharacterBody2D" parent="."]
+
+[node name="CollisionAtas" type="CollisionShape2D" parent="batas_paralax"]
+position = Vector2(752, -264)
+shape = SubResource("RectangleShape2D_vmnmy")
+
+[node name="CollisionBawah" type="CollisionShape2D" parent="batas_paralax"]
+position = Vector2(760, 928)
+shape = SubResource("RectangleShape2D_vmnmy")
+
+[node name="CollisionKiri" type="CollisionShape2D" parent="batas_paralax"]
+position = Vector2(-280, 312)
+shape = SubResource("RectangleShape2D_vmnmy")
+
+[node name="Collisionkanan" type="CollisionShape2D" parent="batas_paralax"]
+position = Vector2(1912, 320)
+shape = SubResource("RectangleShape2D_vmnmy")
+
+[node name="BG" type="CharacterBody2D" parent="."]
+
+[node name="CharacterBody2D" type="CollisionShape2D" parent="BG"]
+position = Vector2(812, 336)
+shape = SubResource("RectangleShape2D_y4fhm")
+
+[node name="TextureRect" type="TextureRect" parent="BG"]
+offset_left = -56.0
+offset_top = -80.0
+offset_right = 1672.0
+offset_bottom = 800.0
+texture = ExtResource("2_y8rcs")
+expand_mode = 1
+script = ExtResource("3_hkkrd")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="BG"]
+stream = ExtResource("4_8rykm")
+volume_db = -3.0
+autoplay = true
+
+[node name="god_ray" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_cuyf4")
+offset_left = 1744.0
+offset_top = -184.0
+offset_right = 2788.0
+offset_bottom = 1370.0
+scale = Vector2(-1, 1)
+
+[node name="new_world_map" parent="." instance=ExtResource("4_d6nie")]
+position = Vector2(120, 16)
+scale = Vector2(0.8, 0.8)
+
+[node name="Container" parent="." instance=ExtResource("9_ieqre")]
+visible = false
+position = Vector2(0, -56)
+rotation = -4.46638e-06
+
+[node name="Panel" parent="." instance=ExtResource("9_cdvdm")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_omcjg")
+
+[node name="effek_cahaya" type="AnimationPlayer" parent="WorldEnvironment"]
+libraries = {
+"": SubResource("AnimationLibrary_jfmij")
+}
+
+[node name="Soal" parent="." instance=ExtResource("8_cdn50")]
+position = Vector2(-16, 832)

@@ -1,0 +1,54 @@
+[gd_scene load_steps=10 format=3 uid="uid://dskb3vnjx0qo5"]
+
+[ext_resource type="Script" path="res://scene/button_stage_dynamic.gd" id="1_vpd7a"]
+[ext_resource type="FontFile" uid="uid://4ek6biwu6max" path="res://assets/font/Winkle-Regular.otf" id="2_lct5g"]
+[ext_resource type="AudioStream" uid="uid://com4hv0lthprs" path="res://assets/SFX/interface-1-126517.mp3" id="3_khid5"]
+[ext_resource type="Texture2D" uid="uid://bayf2hdc1wdxs" path="res://assets/tombol.png" id="3_xkc00"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_onyhu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_weofx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3yo5w"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1ei6x"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r2nhb"]
+
+[node name="button_stage_dynamic" type="Node2D"]
+script = ExtResource("1_vpd7a")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+modulate = Color(0.690196, 0.0470588, 0.0862745, 1)
+offset_left = 8.0
+offset_right = 608.0
+offset_bottom = 104.0
+texture = ExtResource("3_xkc00")
+region_rect = Rect2(24, 144, 687, 105)
+patch_margin_left = 78
+patch_margin_top = 27
+patch_margin_right = 108
+patch_margin_bottom = 33
+
+[node name="Button" type="Button" parent="."]
+offset_left = 48.0
+offset_top = 8.0
+offset_right = 568.0
+offset_bottom = 96.0
+mouse_filter = 1
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_lct5g")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxEmpty_onyhu")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_weofx")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_3yo5w")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_1ei6x")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_r2nhb")
+text = "THIS IS TITLE"
+
+[node name="sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_khid5")
+
+[connection signal="mouse_entered" from="Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="Button" to="." method="_on_button_mouse_exited"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
